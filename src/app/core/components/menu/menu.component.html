@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-1">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a routerLink="/dashboard" class="nav-link" routerLinkActive="active">
+              <i class="fa fa-home"></i>
+              Home <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+         
+
+          <li class="nav-item">
+            <a routerLink="/pessoas" routerLinkActive="active" class="nav-link">
+              <i class="fa fa-calendar-check-o"> </i> Pessoas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a  routerLinkActive="active" class="nav-link">
+              <i class="fa fa-calendar-check-o"> </i> UFs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLinkActive="active" class="nav-link">
+              <i class="fa fa-calendar-check-o"> </i> Municipios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a  routerLinkActive="active" class="nav-link">
+              <i class="fa fa-calendar-check-o"> </i> Bairros
+            </a>
+          </li>
+       
+        </ul>
+
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
