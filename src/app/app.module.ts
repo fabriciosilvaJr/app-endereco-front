@@ -37,7 +37,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     AuthenticationComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
    
     
   
