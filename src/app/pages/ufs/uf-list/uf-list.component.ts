@@ -48,9 +48,33 @@ export class UfListComponent implements OnInit {
       ufs =>  this.ufs = ufs,
        error => alert ("Erro ao carregar a lista"),
      )
-
+     
 
   }
+  deleteUf(uf){
+   console.log("deletando");
+
+
+    this.confirmationService.confirm({
+      message: 'Deseja realmente excluir este item?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.ufService.delete(uf.codigoUF).subscribe(
+          () => this.ufs = this.ufs.filter(element =>  element != uf),
+          () => alert ("Erro ao tentar excluir!")
+  
+        )
+
+    
+    },
+  
+    key: "positionDialog"
+  
+  });
+
+
+}
 
 
   
