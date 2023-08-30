@@ -45,24 +45,13 @@
   </head>
   <body class="text-center">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  class="form-signin">
-   
       <h1 class="h3 mb-3 font-weight-normal" style="margin-top: 30px;">Login</h1>
-
       <p-confirmDialog [style]="{width: '30vw'}" [baseZIndex]="10000"></p-confirmDialog>
       <!-- <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button> -->
-
-     
-
       <label for="login" class="sr-only">Login </label>
-      <input type="login" formControlName="login"  name="login"  id="login" class="form-control"  placeholder="Email"><br>
-      
+      <input type="login" formControlName="login"  name="login"  id="login" class="form-control"  placeholder="Login"><br>
       <label for="senha" class="sr-only">Senha</label>
       <input type="password" formControlName="senha" name="senha"  id="senha" class="form-control"  placeholder="Senha" >
-       
-    
-    
-   
-      
        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" [disabled]="!loginForm.valid">Acessar</button><br>
        <div class="row">
         <div class="col">
@@ -72,7 +61,7 @@
           <a  routerLink="/forgot-password" class="stretched-link">Recuperar Senha</a>
         </div>
       </div>
-      <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
     </form>
     
 

@@ -17,6 +17,7 @@ const routes: Routes = [
     children: [
   
       {path: 'pessoas',  loadChildren: () => import('./pages/pessoas/pessoas.module').then(m => m.PessoasModule)},
+      {path: 'uf',  loadChildren: () => import('./pages/ufs/ufs.module').then(m => m.UfsModule)},
       {path: '', redirectTo: 'pessoas', pathMatch: 'full' },
     ],
       canActivate: [AuthGuard]
