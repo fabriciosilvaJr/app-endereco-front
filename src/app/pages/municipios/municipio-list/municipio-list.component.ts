@@ -13,12 +13,9 @@ import { Municipio } from '../municipio.model';
 export class MunicipioListComponent implements OnInit {
 
   position: string;
-
   searchTerm: string;
-
   public paginaAtual = 1;
   pageSize = 10;
-
   key:string = 'codigoMunicipio'; // Define um valor padrão, para quando inicializar o componente
     reverse: boolean = true;
     sort(key) {
@@ -36,7 +33,7 @@ export class MunicipioListComponent implements OnInit {
        error => alert ("Erro ao carregar a lista"),
      )
   }
-  deleteUf(municipio){
+  deleteMunicipio(municipio){
  
      this.confirmationService.confirm({
        message: 'Deseja realmente excluir este item?',
@@ -48,8 +45,6 @@ export class MunicipioListComponent implements OnInit {
            () => alert ("Erro ao tentar excluir!")
    
          )
- 
-     
      },
    
      key: "positionDialog"

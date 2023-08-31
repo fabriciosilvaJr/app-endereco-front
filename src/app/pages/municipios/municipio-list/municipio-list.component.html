@@ -39,7 +39,7 @@
                         <span *ngIf="key =='nome'">{{reverse ? '▲' : '▼'}}</span>
 
                     </th>
-                    
+
                     <th>
                         Status
 
@@ -59,8 +59,9 @@
                     <td>{{municipio.nome }}</td>
                     <td>{{municipio.status == '1' ? 'Ativo' : 'Inativo' }}</td>
                     <td>
-                        <a [routerLink]="[municipio.codigoMunicipio,'edit']"><i class="fa fa-pencil text-info mr-2"></i></a>
-                        <a (click)="deleteUf(municipio)"><i class="fa fa-trash text-danger"></i></a>
+                        <a [routerLink]="[municipio.codigoMunicipio,'edit']"><i
+                                class="fa fa-pencil text-info mr-2"></i></a>
+                        <a (click)="deleteMunicipio(municipio)"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                 </tr>
             </tbody>
