@@ -40,7 +40,7 @@ export class UfService {
 
   update(uf: UF){
     const url = `${this.api}`;
-    return this.http.patch(url, uf).pipe(
+    return this.http.put(url, uf).pipe(
       map(() => uf),
       catchError(this.handleError)
     )

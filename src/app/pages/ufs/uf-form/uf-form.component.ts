@@ -1,5 +1,5 @@
 import { AfterContentChecked, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UF } from '../uf.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UfService } from 'src/app/core/services/uf.service';
@@ -34,6 +34,10 @@ export class UfFormComponent implements OnInit, AfterContentChecked {
   }
   ngAfterContentChecked(){
     this.setPageTitle();
+    if(this.currentAction =="new"){
+      this.ufForm.removeControl('codigoUF');
+
+    }
 
   }
   get codigoUF() {return this.ufForm.get('codigoUF')}; 
@@ -48,15 +52,24 @@ export class UfFormComponent implements OnInit, AfterContentChecked {
       this.updateUf();
   }
 
+  get ufGroup() { return this.ufForm.get('codigoUF'); }
+
+
   private setCurrentAction(){
     if(this.route.snapshot.url[0].path == "new")
-       this.currentAction ="new"
+  
+        this.currentAction ="new";
+
+      
     else
-       this.currentAction ="edit"
+       this.currentAction ="edit";
+
+    
    }
  
    private buildUfForm(){
     this.ufForm = this.formBuilder.group({
+      codigoUF: [null,[Validators.required]],
       nome: [null,[Validators.required]],
       sigla: [null, [Validators.required, Validators.minLength(2)]],
       status: [null,[Validators.required]],
