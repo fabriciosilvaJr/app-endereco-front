@@ -2,46 +2,47 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { UF } from 'src/app/pages/ufs/uf.model';
+import { Municipio } from 'src/app/pages/municipios/municipio.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UfService {
-  private api: string = (environment.api + "uf" ); 
+export class MunicipioService {
+  private api: string = (environment.api + "municipio"); 
+
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<UF[] >{
+  getAll(): Observable<Municipio[] >{
 
     return this.http.get(`${this.api}`).pipe(
-      map (this.jsonDataToUfs),
+      map (this.jsonDataToMunicipios),
       catchError(this.handleError)
     )
 
   }
 
-  getById(CODIGO: number): Observable<UF>{
-    const url = `${this.api}?codigoUF=${CODIGO}`;
+  getById(CODIGO: number): Observable<Municipio>{
+    const url = `${this.api}?codigoMunicipio=${CODIGO}`;
 
     return this.http.get(url).pipe(
-      map(this.jsonDataToUF),
+      map(this.jsonDataToMunicipio),
       catchError(this.handleError)
     )
 
   }
-  create(uf: UF): Observable<UF>{
-    return this.http.post(this.api, uf).pipe(
+  create(municipio: Municipio): Observable<Municipio>{
+    return this.http.post(this.api, municipio).pipe(
       catchError(this.handleError),
 
     )
   }
 
-  update(uf: UF){
+  update(municipio: Municipio){
     const url = `${this.api}`;
-    return this.http.put(url, uf).pipe(
-      map(() => uf),
+    return this.http.put(url, municipio).pipe(
+      map(() => municipio),
       catchError(this.handleError)
     )
   } 
@@ -59,15 +60,15 @@ export class UfService {
 
    //Private Methods
 
-   private jsonDataToUfs(jsonData: any[]): UF[]{
-    const ufs: UF[] = [];
-    jsonData.forEach(element =>  ufs.push(element as UF));
-    return ufs; 
+   private jsonDataToMunicipios(jsonData: any[]): Municipio[]{
+    const municipios: Municipio[] = [];
+    jsonData.forEach(element =>  municipios.push(element as Municipio));
+    return municipios; 
 
   }
 
-  private jsonDataToUF (jsonData: any): UF{
-    return jsonData as UF;
+  private jsonDataToMunicipio (jsonData: any): Municipio{
+    return jsonData as Municipio;
   }
   private handleError(error: any):Observable<any>{
     console.log("Erro na requisição =>", error);
