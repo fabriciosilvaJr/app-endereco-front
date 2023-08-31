@@ -19,6 +19,7 @@ const routes: Routes = [
       {path: 'pessoas',  loadChildren: () => import('./pages/pessoas/pessoas.module').then(m => m.PessoasModule)},
       {path: 'uf',  loadChildren: () => import('./pages/ufs/ufs.module').then(m => m.UfsModule)},
       {path: 'municipios',  loadChildren: () => import('./pages/municipios/municipios.module').then(m => m.MunicipiosModule)},
+      {path: 'bairros',  loadChildren: () => import('./pages/bairros/bairros.module').then(m => m.BairrosModule)},
       {path: '', redirectTo: 'pessoas', pathMatch: 'full' },
     ],
       canActivate: [AuthGuard]
