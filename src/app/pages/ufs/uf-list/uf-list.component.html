@@ -55,7 +55,7 @@
 			</thead>
 			<tbody>
 				<tr
-					*ngFor="let uf of ufs |  orderBy: key : reverse  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: ufs.length };">
+					*ngFor="let uf of ufs |  orderBy: key : reverse | ufFilter:searchTerm  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: ufs.length };">
 					<td>{{uf.codigoUF }}</td>
 					<td>{{uf.nome }}</td>
 					<td>{{uf.sigla}}</td>

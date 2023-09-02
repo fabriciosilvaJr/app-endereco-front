@@ -8,10 +8,11 @@ import { OrderModule } from 'ngx-order-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { UFFilterPipe } from './uf-filter.pipe';
 
 
 @NgModule({
-  declarations: [UfListComponent, UfFormComponent],
+  declarations: [UfListComponent, UfFormComponent, UFFilterPipe],
   imports: [
     CommonModule,
     UfsRoutingModule,
