@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Usuario } from 'src/app/pages/pessoas/pessoa.model';
+import { Pessoa } from 'src/app/pages/pessoas/pessoa.model';
 import toastr from 'toastr';
 import {ConfirmationService} from 'primeng/api';
 import {Message} from 'primeng/api';
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
 
-  public usuario: Usuario = new Usuario();
+  public usuario: Pessoa = new Pessoa();
 
 
   loginForm: FormGroup = this.fb.group({
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   
-  private actionsForSucess(usuario: Usuario){
+  private actionsForSucess(usuario: Pessoa){
     toastr.success("Login realizado com sucesso!");
    
     setTimeout(() => {

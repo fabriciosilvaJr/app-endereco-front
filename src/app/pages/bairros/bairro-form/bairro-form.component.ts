@@ -83,7 +83,7 @@ export class BairroFormComponent implements OnInit {
       codigoBairro: [null,[Validators.required]],
       codigoMunicipio: [null,[Validators.required]],
       nome: [null,[Validators.required]],
-      status: [null,[Validators.required]],
+      status: [1,[Validators.required]],
     });
      
    }

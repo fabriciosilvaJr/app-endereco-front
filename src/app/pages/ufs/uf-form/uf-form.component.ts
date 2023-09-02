@@ -72,7 +72,7 @@ export class UfFormComponent implements OnInit, AfterContentChecked {
       codigoUF: [null,[Validators.required]],
       nome: [null,[Validators.required]],
       sigla: [null, [Validators.required, Validators.minLength(2)]],
-      status: [null,[Validators.required]],
+      status: [1,[Validators.required]],
     });
      
    }

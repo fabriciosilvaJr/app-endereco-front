@@ -83,7 +83,7 @@ export class MunicipioFormComponent implements OnInit {
       codigoMunicipio: [null,[Validators.required]],
       codigoUF: [null,[Validators.required]],
       nome: [null,[Validators.required]],
-      status: [null,[Validators.required]],
+      status: [1,[Validators.required]],
     });
      
    }

@@ -15,8 +15,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { IMaskModule } from 'angular-imask';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
@@ -35,9 +33,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     LoginComponent,
     HomeComponent,
     AuthenticationComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
+    RegisterComponent
    
     
   

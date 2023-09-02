@@ -30,10 +30,22 @@
 				   Nome
 				   <span *ngIf="key =='NOME'">{{reverse ? '▲' : '▼'}}</span>
 				</th>
-				<th (click)="sort('EMAIL')">
+				<th   (click)="sort('sobrenome')"> 
+					Sobrenome
+					<span *ngIf="key =='sobrenome'">{{reverse ? '▲' : '▼'}}</span>
+				 </th>
+				 <th   (click)="sort('idade')"> 
+					Idade
+					<span *ngIf="key =='idade'">{{reverse ? '▲' : '▼'}}</span>
+				 </th>
+				<th (click)="sort('login')">
 				   Login
-				   <span *ngIf="key =='EMAIL'">{{reverse ? '▲' : '▼'}}</span>
+				   <span *ngIf="key =='login'">{{reverse ? '▲' : '▼'}}</span>
 				</th>
+				<th   (click)="sort('status')"> 
+					Status
+					<span *ngIf="key =='status'">{{reverse ? '▲' : '▼'}}</span>
+				 </th>
 				
 		
 				<th>
@@ -41,20 +53,23 @@
 			 </tr>
 		  </thead>
 		  <tbody>
-			 <tr *ngFor="let usuario of usuarios |  orderBy: key : reverse | pessoaFilter:searchTerm  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: usuarios.length };  ">
-				<!-- <td *ngIf="isMobile === false" >{{usuario.CODIGO }}</td> -->
-				<td *ngIf="isMobile === false" >{{usuario.NOME }}</td>
-				<td>{{usuario.EMAIL}}</td>
-				<td>{{usuario.PERFIL_USUARIO}}</td>
+			 <tr *ngFor="let pessoa of pessoas |  orderBy: key : reverse | pessoaFilter:searchTerm  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: pessoas.length };  ">
+				<!-- <td *ngIf="isMobile === false" >{{pessoa.CODIGO }}</td> -->
+				<td >{{pessoa.nome }}</td>
+				<td >{{pessoa.sobrenome }}</td>
+				<td >{{pessoa.idade }}</td>
+				<td>{{pessoa.login}}</td>
+				<td>{{pessoa.status == '1' ? 'Ativo' : 'Inativo' }}</td>
+
 				<td>
-				   <a [routerLink]="[usuario.CODIGO,'edit']"><i class="fa fa-pencil text-info mr-2"></i></a>									
-				   <a (click)="deleteUsuario(usuario)"  ><i class="fa fa-trash text-danger"></i></a>
+				   <a [routerLink]="[pessoa.codigoPessoa,'edit']"><i class="fa fa-pencil text-info mr-2"></i></a>									
+				   <a (click)="deletePessoa(pessoa)"  ><i class="fa fa-trash text-danger"></i></a>
 				</td>
 			 </tr>
 		  </tbody>
 	   </table>
 	   <hr>
-	   <div class="row" *ngIf="usuarios.length > 10" style="margin-right: 0px; margin-left: 0px;">
+	   <div class="row" *ngIf="pessoas.length > 10" style="margin-right: 0px; margin-left: 0px;">
 		  <div class="col-8">
 			 <pagination-controls 
 				(pageChange)="paginaAtual = $event"
@@ -72,7 +87,6 @@
 				 <label for="pageSize">items por pagina:</label>
 			</div>
 			<div class="col-2">
-	
 			 <select  [(ngModel)]="pageSize"id="pageSize" class="form-control">
 			 <option value="10">10</option>
 			 <option value="25">25</option>

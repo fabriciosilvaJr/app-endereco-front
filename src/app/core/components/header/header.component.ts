@@ -2,7 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Usuario } from 'src/app/pages/pessoas/pessoa.model';
+import { Pessoa } from 'src/app/pages/pessoas/pessoa.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent implements OnInit {
 
   authenticated$: Observable<boolean> ;
-  user$: Observable<Usuario>;
+  user$: Observable<Pessoa>;
   usuario: any = {
     NOME: localStorage.getItem('nome'),
     CODIGO: localStorage.getItem('id'),
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  private actionsForSucess(usuario: Usuario){
+  private actionsForSucess(pessoa: Pessoa){
    
   
     this.router.navigateByUrl('/login');

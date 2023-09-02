@@ -1,0 +1,81 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Novo Endereço</h4>
+</div>
+<div class="modal-body">
+   
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group row ">
+            <div class="col-sm-6">
+                <label for="BairroId">Bairro</label>
+                <select name="BairroId" class="form-control" id="BairroId " formControlName="codigoBairro">
+                   <option *ngFor="let bairro of bairros" [value]="bairro.codigoBairro">
+                      {{bairro.nome}}
+                   </option>
+                </select>
+                    <div class="text-danger" *ngIf="addForm.get('codigoBairro').invalid && addForm.get('codigoBairro').touched">
+                        <div *ngIf="addForm.get('codigoBairro').errors.required"> dado obrigatório </div>
+                        <div *ngIf="addForm.get('codigoBairro').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+                     </div>              
+                </div>   
+             <div class="col-sm-6">
+                <label for="nomeRua">Rua:</label>
+                <input type="text" formControlName="nomeRua" class="form-control" /> 
+                <div class="text-danger" *ngIf="addForm.get('nomeRua').invalid && addForm.get('nomeRua').touched">
+                    <div *ngIf="addForm.get('nomeRua').errors.required"> dado obrigatório </div>
+                    <div *ngIf="addForm.get('nomeRua').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+                 </div>              
+            </div>  
+            <div class="col-sm-6">
+                <label for="numero">Numero:</label>
+                <input type="text" formControlName="numero" class="form-control" /> 
+                <div class="text-danger" *ngIf="addForm.get('numero').invalid && addForm.get('numero').touched">
+                    <div *ngIf="addForm.get('numero').errors.required"> dado obrigatório </div>
+                    <div *ngIf="addForm.get('numero').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+                 </div>              
+            </div>  
+            <div class="col-sm-6">
+                <label for="complemento">Complemento:</label>
+                <input type="text" formControlName="complemento" class="form-control" /> 
+                <div class="text-danger" *ngIf="addForm.get('complemento').invalid && addForm.get('complemento').touched">
+                    <div *ngIf="addForm.get('complemento').errors.required"> dado obrigatório </div>
+                    <div *ngIf="addForm.get('complemento').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+                 </div>              
+            </div>  
+            <div class="col-sm-6">
+                <label for="cep">cep:</label>
+                <input type="text" formControlName="cep" class="form-control" /> 
+                <div class="text-danger" *ngIf="addForm.get('cep').invalid && addForm.get('cep').touched">
+                    <div *ngIf="addForm.get('cep').errors.required"> dado obrigatório </div>
+                    <div *ngIf="addForm.get('cep').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+                 </div>              
+            </div>  
+          
+        </div>   
+        
+        
+        
+        <div class="modal-footer">
+
+            <div class="col-3" style="padding-right: 2px; padding-left: 2px">
+                <button [disabled]="submittingForm || addForm.invalid" type="submit" class="btn btn-primary btn-sm btn-block float-right mt-3 mr-2">Salvar</button>
+            </div> 
+          
+            <div class="col-3" style="padding-right: 2px; padding-left: 2px">
+                <button  class="btn btn-danger  btn-sm btn-block float-right mt-3 mr-2" (click)="modal.close('Cancel')">Cancel</button>
+            </div>    
+                
+        </div>
+       
+
+    </form>
+  
+    
+    <!-- <pre>{{addForm.value | json}}</pre>  -->
+
+</div>
+
+
+<!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"  (click)="modal.close('Yes')">Update</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel')">Cancel</button>
+</div> -->

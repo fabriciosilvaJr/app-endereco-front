@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Usuario } from 'src/app/pages/pessoas/pessoa.model';
+import { Pessoa } from 'src/app/pages/pessoas/pessoa.model';
 import { environment } from 'src/environments/environment';
 
 
@@ -21,7 +21,7 @@ export class AuthService {
   private api: string = (environment.api + "pessoa" ) 
  
 
-  private subjUsuario$: BehaviorSubject<Usuario> = new BehaviorSubject(null);
+  private subjPessoa$: BehaviorSubject<Pessoa> = new BehaviorSubject(null);
   private subjLoggedIn$: BehaviorSubject<Boolean> = new BehaviorSubject(false);
 
 
@@ -29,8 +29,8 @@ export class AuthService {
 
   
 
-  register(usuario: Usuario): Observable<Usuario>{
-    return this.http.post<Usuario>(`${this.api}/cadastro`,usuario).pipe(
+  register(pessoa: Pessoa): Observable<Pessoa>{
+    return this.http.post<Pessoa>(`${this.api}/cadastro`,pessoa).pipe(
       catchError(this.handleError)
 
     )
@@ -38,8 +38,8 @@ export class AuthService {
   }
 
 
- login(credentials: {login: string, senha: string}): Observable<Usuario>{
-   return this.http.post<Usuario>(`${this.api}/login`, credentials)
+ login(credentials: {login: string, senha: string}): Observable<Pessoa>{
+   return this.http.post<Pessoa>(`${this.api}/login`, credentials)
   //  return this.http.post( this.api + 'auth',credentials)
    .pipe(
      tap((u:any)=>{
@@ -49,23 +49,23 @@ export class AuthService {
          localStorage.setItem('nome',u.data.name.toString());
         localStorage.setItem('guid',u.GUID);
         this.subjLoggedIn$.next(true);
-        this.subjUsuario$.next(u);
+        this.subjPessoa$.next(u);
         //console.log(u);
      })
    )
  }
 
- forgot(usuario: Usuario){
+ forgot(pessoa: Pessoa){
   const url = `${this.api}/forgot-password`;
-  return this.http.put(url, usuario).pipe(
-    map(() => usuario),
+  return this.http.put(url, pessoa).pipe(
+    map(() => pessoa),
     catchError(this.handleError)
   )
 } 
-reset(usuario: Usuario){
+reset(pessoa: Pessoa){
   const url = `${this.api}/reset-password`;
-  return this.http.put(url, usuario).pipe(
-    map(() => usuario),
+  return this.http.put(url, pessoa).pipe(
+    map(() => pessoa),
     catchError(this.handleError)
   )
 } 
@@ -79,29 +79,29 @@ reset(usuario: Usuario){
 }
  checkTokenValidation(): Observable<boolean> {
   return this.http
-    .get<Usuario>(`${this.api}`)
+    .get<Pessoa>(`${this.api}`)
     .pipe(
-      tap((u: Usuario) => {
+      tap((u: Pessoa) => {
         if (u) {
           this.subjLoggedIn$.next(true);
-          this.subjUsuario$.next(u);
+          this.subjPessoa$.next(u);
         }
       }),
-      map((u: Usuario) => (u)?true:false),
+      map((u: Pessoa) => (u)?true:false),
       catchError((err) => {
         // this.logout();
         return of(false);
       })
     );
 }
- getUser():Observable<Usuario>{
+ getUser():Observable<Pessoa>{
 
-  return this.subjUsuario$.asObservable();
+  return this.subjPessoa$.asObservable();
 
  }
  
- logout(user:any): Observable<Usuario>{
-  return this.http.post<Usuario>(`${this.api}/logout`, user)
+ logout(user:any): Observable<Pessoa>{
+  return this.http.post<Pessoa>(`${this.api}/logout`, user)
  //  return this.http.post( this.api + 'auth',credentials)
   .pipe(
     tap(()=>{
@@ -110,7 +110,7 @@ reset(usuario: Usuario){
       localStorage.removeItem('id');
        window.location.reload();
       this.subjLoggedIn$.next(false);
-      this.subjUsuario$.next(null);
+      this.subjPessoa$.next(null);
        //console.log(u);
     })
   )
@@ -124,7 +124,7 @@ reset(usuario: Usuario){
    localStorage.removeItem('role');
    localStorage.removeItem('guid');
    this.subjLoggedIn$.next(false);
-   this.subjUsuario$.next(null);
+   this.subjPessoa$.next(null);
 
  }
 

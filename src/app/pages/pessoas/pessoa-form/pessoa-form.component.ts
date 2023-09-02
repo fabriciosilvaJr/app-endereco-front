@@ -1,58 +1,136 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router} from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { PessoaService } from 'src/app/core/services/pessoa.service';
 import toastr from 'toastr';
-import { Usuario } from '../pessoa.model';
+import { Pessoa } from '../pessoa.model';
+import { ConfirmationService } from 'primeng/api';
+import {Message} from 'primeng/api';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EnderecoAddComponent } from '../../enderecos/endereco-add/endereco-add.component';
+import { EnderecoService } from 'src/app/core/services/endereco.service';
+import { Endereco } from '../../enderecos/endereco.model';
+
 
 
 @Component({
   selector: 'app-pessoa-form',
   templateUrl: './pessoa-form.component.html',
-  styleUrls: ['./pessoa-form.component.css']
+  styleUrls: ['./pessoa-form.component.css'],
+  providers: [ConfirmationService]
+
 })
 export class PessoaFormComponent implements OnInit, AfterContentChecked {
+  searchTerm:string;
+  public paginaAtual = 1;
+  pageSize = 5;
+  enderecos: Endereco[] = [];
+  position: string;
+  msgs: Message[] = [];
+
+  key:string = 'CODIGO'; // Define um valor padrão, para quando inicializar o componente
+    reverse: boolean = false;
+  tamanho: any;
+    sort(key) {
+        this.key = key;
+        this.reverse = !this.reverse;
+    }
 
   currentAction: string;
   pessoaForm: FormGroup;
   pageTitle: string;
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
-  usuario: Usuario = new Usuario();
+  pessoa: Pessoa = new Pessoa();
 
 
   constructor(
-    private usuarioService: UsuarioService,
+    private pessoaService: PessoaService,
+    private modalService: NgbModal,
+    private enderecoService: EnderecoService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-
-
+    this.clearEnderecoCache();
     this.setCurrentAction();
-    this.buildUsuarioForm();
-    this.loadUsuario();
+    this.buildPessoaForm();
+    this.loadPessoa();
+    this.enderecoService.getEnderecoData().subscribe((enderecoData) => {
+      if (enderecoData) {
+        this.enderecos.push(enderecoData);
+        this.addEnderecoToForm(enderecoData);
+      }
+    });
+
   
   
   }
+  addEnderecoToForm(enderecoData: Endereco) {
+    const enderecoArray = this.pessoaForm.get('enderecos') as FormArray;
+    enderecoArray.push(this.formBuilder.group(enderecoData));
+
+  }
+  clearEnderecoCache() {
+    this.enderecoService.clearEnderecoData();
+    this.enderecos = [];
+  }
+  
   ngAfterContentChecked(){
     this.setPageTitle();
+    if(this.currentAction =="new"){
+      this.pessoaForm.removeControl('codigoPessoa');
+
+    }
+  
 
   }
-  get CODIGO() {return this.pessoaForm.get('CODIGO')}; 
+
+  addEndereco() {
+    // this.router.navigateByUrl(`EditUser/${userModel.id}`);
+
+    const ref = this.modalService.open(EnderecoAddComponent, { centered: true, size: 'lg', backdrop: 'static' });
+    
+
+    ref.result.then((yes) => {
+      console.log("Yes Click");
+
+      //this.setNaturezaList();
+    },
+      (cancel) => {
+        console.log("Cancel Click");
+        this.pessoaForm.reset();
+        this.clearEnderecoCache();
+
+      })
+  }
+
+
+
+  
+  get codigoPessoa() {return this.pessoaForm.get('codigoPessoa')}; 
   submitForm(){
     this.submittingForm = true;
    
  
     if(this.currentAction == "new")
-    {this.CODIGO.setValue(-1); 
-      this.createUsuario();}
+    {
+      this.createPessoa();
+      this.pessoaForm.reset();
+      this.clearEnderecoCache();
 
-    else
-      this.updateUsuario();
+
+    }
+
+    else{
+      this.updatePessoa();
+      this.pessoaForm.reset();
+      this.clearEnderecoCache();
+
+    }
   }
 
   // Private Methods
@@ -64,30 +142,53 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
       this.currentAction ="edit"
   }
 
-  private buildUsuarioForm(){
+  private buildPessoaForm(){
     const guid = window.localStorage.getItem('guid');
     this.pessoaForm = this.formBuilder.group({
-      GUID:[guid],
-      CODIGO: [null],
-      COD_PERFIL_USUARIO:[null],
-      NOME: [null, [Validators.required, Validators.minLength(2)]],
-      EMAIL: [null,[Validators.required, Validators.email]],
-      SENHA: [null,[Validators.required]],
+      codigoPessoa: [null],
+      nome: [null, [Validators.required]],
+      sobrenome: [null,[Validators.required]],
+      idade: [null,[Validators.required]],
+      login: [null,[Validators.required]],
+      senha: [null,[Validators.required]],
+      status: [1,[Validators.required]],
+      enderecos: this.formBuilder.array([])
+
+
     });
   }
 
 
 
-  private loadUsuario(){
+  private loadPessoa(){
     if(this.currentAction == "edit"){
 
       this.route.paramMap.pipe(
-        switchMap(params => this.usuarioService.getById(+params.get("id")))
+        switchMap(params => this.pessoaService.getById(+params.get("id")))
       )
       .subscribe(
-        (usuario) => {
-          this.usuario = usuario;
-          this.pessoaForm.patchValue(usuario) // binds loaded usuario data to UsuarioForm
+        (pessoa: any) => {
+          this.pessoa = pessoa;
+          this.pessoaForm.patchValue(pessoa) // binds loaded pessoa data to PessoaForm
+          const enderecos = pessoa.enderecos.map((endereco) => ({
+            codigoEndereco: endereco.codigoEndereco,
+            codigoPessoa: endereco.codigoPessoa,
+            codigoBairro: endereco.codigoBairro,
+            nomeRua: endereco.nomeRua,
+            numero: endereco.numero,
+            complemento: endereco.complemento,
+            cep: endereco.cep,
+          }));
+           if(enderecos.length > 0){
+            for (let i = 0; i < enderecos.length; i++) {
+              this.addEnderecoToForm(enderecos[i]);
+              this.enderecos.push(enderecos[i]);
+              
+            }
+            
+           }
+        
+
         },
         (error) => alert('Ocorreu um errro no servidor, tente mais tarde.')
       )
@@ -97,20 +198,20 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
 
   private setPageTitle(){
     if(this.currentAction == 'new')
-      this.pageTitle= "Novo Usuario"
+      this.pageTitle= "Nova Pessoa"
     else{
-      const usuarioName = this.usuario.NOME ||  ""
-      this.pageTitle = "Editar Usuario";
+      const pessoaName = this.pessoa.nome ||  ""
+      this.pageTitle = "Editar Pessoa";
 
     }
   }
  
-  private createUsuario(){
-    const usuario: Usuario = Object.assign(new Usuario(), this.pessoaForm.value);
+  private createPessoa(){
+    const pessoa: Pessoa = Object.assign(new Pessoa(), this.pessoaForm.value);
  
-    this.usuarioService.create(usuario)
+    this.pessoaService.create(pessoa)
       .subscribe(
-        usuario => this.actionsForSucess(usuario),
+        pessoa => this.actionsForSucess(pessoa),
         error => this.actionsForError(error)
       )
 
@@ -119,22 +220,22 @@ export class PessoaFormComponent implements OnInit, AfterContentChecked {
 
   }
 
-  private updateUsuario(){
-    const usuario: Usuario = Object.assign(new Usuario(), this.pessoaForm.value);
-    this.usuarioService.update(usuario)
+  private updatePessoa(){
+    const pessoa: Pessoa = Object.assign(new Pessoa(), this.pessoaForm.value);
+    this.pessoaService.update(pessoa)
     .subscribe(
-      usuario => this.actionsForSucess(usuario),
+      pessoa => this.actionsForSucess(pessoa),
       error => this.actionsForError(error)
     )
 
   }
 
-  private actionsForSucess(usuario: Usuario){
+  private actionsForSucess(pessoa: Pessoa){
     toastr.success("Solicitação processada com sucesso!");
 
     // redirect / reload component page
-    this.router.navigateByUrl("usuarios").then(
-      ( ) => this.router.navigate(["usuarios", usuario.CODIGO, "new"])
+    this.router.navigateByUrl("pessoas").then(
+      ( ) => this.router.navigate(["pessoas", pessoa.codigoPessoa, "new"])
     )
   }
 

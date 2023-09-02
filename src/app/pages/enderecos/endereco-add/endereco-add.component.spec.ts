@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPasswordComponent } from './forgot-password.component';
+import { NaturezaAddComponent } from './natureza-add.component';
 
-describe('ResetPasswordComponent', () => {
-  let component: ForgotPasswordComponent;
-  let fixture: ComponentFixture<ForgotPasswordComponent>;
+describe('NaturezaAddComponent', () => {
+  let component: NaturezaAddComponent;
+  let fixture: ComponentFixture<NaturezaAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ]
+      declarations: [ NaturezaAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForgotPasswordComponent);
+    fixture = TestBed.createComponent(NaturezaAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

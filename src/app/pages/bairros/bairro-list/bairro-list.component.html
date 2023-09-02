@@ -46,7 +46,6 @@
                     </th>
 
 
-
                     <th>
                     </th>
                 </tr>
@@ -59,8 +58,7 @@
                     <td>{{bairro.nome }}</td>
                     <td>{{bairro.status == '1' ? 'Ativo' : 'Inativo' }}</td>
                     <td>
-                        <a [routerLink]="[bairro.codigoBairro,'edit']"><i
-                                class="fa fa-pencil text-info mr-2"></i></a>
+                        <a [routerLink]="[bairro.codigoBairro,'edit']"><i class="fa fa-pencil text-info mr-2"></i></a>
                         <a (click)="deleteBairro(bairro)"><i class="fa fa-trash text-danger"></i></a>
                     </td>
                 </tr>

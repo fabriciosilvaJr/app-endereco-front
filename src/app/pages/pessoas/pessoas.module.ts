@@ -9,10 +9,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter'; // Importação
 import { PessoaFilterPipe } from './pessoa-filter.pipe';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { EnderecoAddComponent } from '../enderecos/endereco-add/endereco-add.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
-  declarations: [PessoaListComponent, PessoaFormComponent, PessoaFilterPipe],
+  declarations: [PessoaListComponent, PessoaFormComponent, PessoaFilterPipe, EnderecoAddComponent],
   imports: [
     CommonModule,
     PessoasRoutingModule,
@@ -21,7 +25,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ReactiveFormsModule,
     OrderModule,
     NgxPaginationModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MessagesModule,
+    NgbModule
   ]
 })
 export class PessoasModule { }

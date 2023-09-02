@@ -1,5 +1,5 @@
 import { PipeTransform, Pipe } from '@angular/core';
-import { Usuario } from './pessoa.model';
+import { Pessoa } from './pessoa.model';
 
 
 @Pipe({
@@ -7,16 +7,16 @@ import { Usuario } from './pessoa.model';
 })
 export class PessoaFilterPipe implements PipeTransform {
 
-    transform(usuarios: Usuario[], searchTerm: string): Usuario[] {
-        if (!usuarios || !searchTerm) {
-            return usuarios;
+    transform(pessoas: Pessoa[], searchTerm: string): Pessoa[] {
+        if (!pessoas || !searchTerm) {
+            return pessoas;
         }
             
-     return usuarios.filter(usuario => 
-        JSON.stringify(usuario.CODIGO).toLowerCase().includes(searchTerm) ||
-        (usuario.NOME).toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (usuario.EMAIL).toLowerCase().includes(searchTerm.toLowerCase())|| 
-        JSON.stringify(usuario.COD_PERFIL_USUARIO).toLowerCase().includes(searchTerm.toLowerCase())
+     return pessoas.filter(pessoa => 
+        JSON.stringify(pessoa.codigoPessoa).toLowerCase().includes(searchTerm) ||
+        (pessoa.nome).toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (pessoa.login).toLowerCase().includes(searchTerm.toLowerCase())|| 
+        JSON.stringify(pessoa.status).toLowerCase().includes(searchTerm.toLowerCase())
         
         ); 
     }

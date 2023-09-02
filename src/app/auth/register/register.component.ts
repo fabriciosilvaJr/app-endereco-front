@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import toastr from 'toastr';
 import { map } from 'rxjs/operators';
-import { Usuario } from 'src/app/pages/pessoas/pessoa.model';
+import { Pessoa } from 'src/app/pages/pessoas/pessoa.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   pageTitle: string;
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
-  usuario: Usuario = new Usuario();
+  usuario: Pessoa = new Pessoa();
 
   constructor(
     private authService: AuthService,
@@ -28,21 +28,21 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.buildUsuarioForm();
+    this.buildPessoaForm();
     //this.verificaEmailService.verificarEmail('fabricio.inttegre@gmail.com').subscribe();
 
   }
 
   submitForm(){
     this.submittingForm = true;
-    this.createUsuario();
+    this.createPessoa();
 
   }
 
   
 
 
-  private buildUsuarioForm(){
+  private buildPessoaForm(){
     this.formRegister = this.formBuilder.group({
       GUID:[null],
       CODIGO: [null],
@@ -62,8 +62,8 @@ export class RegisterComponent implements OnInit {
   }
 
    
-  private createUsuario(){
-    const usuario: Usuario = Object.assign(new Usuario(), this.formRegister.value);
+  private createPessoa(){
+    const usuario: Pessoa = Object.assign(new Pessoa(), this.formRegister.value);
  
     this.authService.register(usuario)
       .subscribe(
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  private actionsForSucess(usuario: Usuario){
+  private actionsForSucess(usuario: Pessoa){
     toastr.success("Usuário cadastrado com sucesso!");
 
     setTimeout(() => {

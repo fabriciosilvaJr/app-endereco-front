@@ -1,45 +1,109 @@
+<!--
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3">{{pageTitle}} </h1>
- </div>
- <div class="row">
-    <!-- <div class="col-md-8 order-md-1"> -->
-    <div class="col order-md-1">
-   
-       <form [formGroup]="pessoaForm" (submit)="submitForm()" >
-         <div class="form-row">
-            <!-- <div class="form-group col-md-3">
-               <label for="Codigo">Codigo</label>
-               <input type="text" class="form-control" id="Codigo" disabled="disabled" formControlName="CODIGO">
-            </div> --> 
+   <h1 class="h3">{{pageTitle}} </h1>
+</div>
+-->
+<p-messages [value]="msgs"></p-messages>
+<p-confirmDialog [style]="{width: '30vw'}" key="positionDialog" [position]="position"
+   [baseZIndex]="10000"></p-confirmDialog>
 
-            <div class="form-group col-md-3">
-               <label for="NOME">Nome</label>
-               <input type="text" class="form-control" id="NOME"  formControlName="NOME">
-               <div class="text-danger" *ngIf="pessoaForm.get('NOME').invalid && pessoaForm.get('NOME').touched">
-                  <div *ngIf="pessoaForm.get('NOME').errors.required"> dado obrigatório </div>
-                  <div *ngIf="pessoaForm.get('NOME').errors.minlength"> deve ter no mínimo 2 caracteres </div>
-               </div>
+<div class="row">
+   <!-- <div class="col-md-8 order-md-1"> -->
+   <div class="col order-md-1">
+      <form [formGroup]="pessoaForm" (submit)="submitForm()">
+
+
+         <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="col-md-4">
+               <h1 class="h3">{{pageTitle}} </h1>
             </div>
 
-            <div class="form-group col-md-3">
-               <label for="EMAIL">E-mail</label>
-               <input type="text" class="form-control" id="EMAIL"  formControlName="EMAIL">
-               <div class="text-danger" *ngIf="pessoaForm.get('EMAIL').invalid && pessoaForm.get('EMAIL').touched">
-                  <div *ngIf="pessoaForm.get('EMAIL').errors.required"> Email é obrigatório </div>
-                  <div *ngIf="pessoaForm.get('EMAIL').hasError('emailInvalido')"> Email já cadastrado! </div>
-               </div>
 
-            </div>
-            <div *ngIf="pessoaForm.get('CODIGO').value  == null" class="form-group col-md-3" >
-               <label for="SENHA">Senha</label>
-               <input type="password" class="form-control" id="SENHA"  formControlName="SENHA">
-            
-            </div>
-
-                    
-
+            <!-- <div class="col">                  
+                  <div class="container">
+                     <div class="row" style="margin-right: -20px; margin-left: -30px">
+                        <div class="col-md-6 mt-2">	  
+                        </div>
+                        <div class="col-md-3 mt-2" style="padding-right: 2px; padding-left: 2px">
+                           <button [disabled]="submittingForm || pessoaForm.invalid" type="submit" class="btn btn-success btn-sm btn-block float-right mt-3 mr-2">Salvar</button>
+                        </div>
+                        <div class="col-md-3 mt-2" style="padding-right: 2px; padding-left: 2px">
+                           <button routerLink="/plano-contas" type="button" class="btn btn-danger btn-sm btn-block float-right mt-3 mr-2">Cancelar</button>                  
+                        </div>
+                     </div>
+                  </div>                  
+               </div>          -->
          </div>
 
+
+
+
+         <div class="form-row">
+            <!-- <div class="form-group col-md-3">
+            <label for="Codigo">Codigo</label>
+            <input type="text" class="form-control" id="Codigo" disabled="disabled" formControlName="CODIGO">
+         </div> -->
+            <div class="form-group col-md-4">
+               <label for="nome">Nome</label>
+               <input type="text" class="form-control" id="nome" formControlName="nome">
+               <div class="text-danger" *ngIf="pessoaForm.get('nome').invalid && pessoaForm.get('nome').touched">
+                  <div *ngIf="pessoaForm.get('nome').errors.required"> dado obrigatório </div>
+                  <div *ngIf="pessoaForm.get('nome').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+               </div>
+            </div>
+            <div class="form-group col-md-4">
+               <label for="sobrenome">Sobrenome</label>
+               <input type="text" class="form-control" id="nome" formControlName="sobrenome">
+               <div class="text-danger"
+                  *ngIf="pessoaForm.get('sobrenome').invalid && pessoaForm.get('sobrenome').touched">
+                  <div *ngIf="pessoaForm.get('sobrenome').errors.required"> dado obrigatório </div>
+                  <div *ngIf="pessoaForm.get('sobrenome').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+               </div>
+            </div>
+            <div class="form-group col-md-4">
+               <label for="idade">Idade</label>
+               <input type="text" class="form-control" id="idade" formControlName="idade">
+               <div class="text-danger" *ngIf="pessoaForm.get('idade').invalid && pessoaForm.get('idade').touched">
+                  <div *ngIf="pessoaForm.get('idade').errors.required"> dado obrigatório </div>
+                  <div *ngIf="pessoaForm.get('idade').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+               </div>
+            </div>
+            <div class="form-group col-md-4">
+               <label for="login">Login</label>
+               <input type="text" class="form-control" id="login" formControlName="login">
+               <div class="text-danger" *ngIf="pessoaForm.get('login').invalid && pessoaForm.get('login').touched">
+                  <div *ngIf="pessoaForm.get('login').errors.required"> dado obrigatório </div>
+                  <div *ngIf="pessoaForm.get('login').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+               </div>
+            </div>
+            <div class="form-group col-md-4">
+               <label for="senha">Senha</label>
+               <input type="password" class="form-control" id="senha" formControlName="senha">
+               <div class="text-danger" *ngIf="pessoaForm.get('senha').invalid && pessoaForm.get('senha').touched">
+                  <div *ngIf="pessoaForm.get('senha').errors.required"> dado obrigatório </div>
+                  <div *ngIf="pessoaForm.get('senha').errors.minlength"> deve ter no mínimo 2 caracteres </div>
+               </div>
+            </div>
+
+            <div class="form-group col-md-4">
+               <label for="nome" class="ml-3">Status</label>
+               <div style="margin-top: 8px;">
+                  <div class="form-check-inline ml-3">
+                     <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [value]="1" formControlName="status">
+                        <span>Ativo</span>
+                     </label>
+                  </div>
+                  <div class="form-check-inline">
+                     <label class="form-check-label">
+                        <input type="radio" class="form-check-input" [value]="2" formControlName="status">
+                        <span>Inativo</span>
+                     </label>
+                  </div>
+               </div>
+            </div>
+         </div>
          <div class="alert-danger mt-4" *ngIf="serverErrorMessages">
             <strong>Erro no Servidor</strong>
             <ul>
@@ -47,26 +111,102 @@
             </ul>
          </div>
 
-        
          <div class="container">
             <div class="row" style="margin-right: -20px; margin-left: -30px">
-              <div class="col-md-8">	  
-                
-              </div>
-              <div class="col-md-2"  *ngIf="pessoaForm.get('CODIGO').value == null"   style="padding-right: 2px; padding-left: 2px">
-               <button [disabled]="submittingForm || pessoaForm.invalid" type="submit" class="btn btn-success btn-sm btn-block float-right mt-3 mr-2">Salvar</button>
-              </div>
-              <div class="col-md-2" *ngIf="pessoaForm.get('CODIGO').value != null" style="padding-right: 2px; padding-left: 2px">
-               <button [disabled]="submittingForm " type="submit" class="btn btn-success btn-sm btn-block float-right mt-3 mr-2">Salvar</button>
-              </div>
-              <div class="col-md-2" style="padding-right: 2px; padding-left: 2px">
-               <button routerLink="/usuarios" type="button" class="btn btn-danger btn-sm btn-block float-right mt-3 mr-2">Cancelar</button>                  
-              </div>
+               <div class="col-8">
+               </div>
+               <div class="col-2" style="padding-right: 2px; padding-left: 2px">
+                  <button [disabled]="submittingForm || pessoaForm.invalid" type="submit"
+                     class="btn btn-success btn-sm btn-block float-right mt-3 mr-2">Salvar</button>
+               </div>
+               <div class="col-2" style="padding-right: 2px; padding-left: 2px">
+                  <button routerLink="/pessoas" type="button"
+                     class="btn btn-danger btn-sm btn-block float-right mt-3 mr-2">Cancelar</button>
+               </div>
             </div>
-         </div>         
+         </div>
+
+
       </form>
 
+      <div class="card text-center" style="padding: 5px; box-shadow: 1px 1px rgba(0,0,0,0.49);">
 
-    </div>
- </div>
- <!-- <pre>{{pessoaForm.value | json}}</pre> -->
+         <ul class="nav nav-tabs">
+            <li class="nav-item">
+               <a class="nav-link active" data-toggle="tab" href="#endereco">Endereço</a>
+            </li>
+
+         </ul>
+
+
+         <div>
+            <div class="container">
+               <div class="row" style=" margin-left: -30px; margin-top: 5px; margin-bottom: 5px">
+                  <div class="col-md-10 mt-2">
+                     <input style="height: 31px" type="text" class="form-control" id="search" placeholder="Pesquisar">
+                  </div>
+                  <div class="col-md-2 mt-2" style="padding-right: 2px; padding-left: 2px">
+                     <button class="btn btn-primary btn-sm btn-block" (click)="addEndereco()">Adicionar</button>
+                  </div>
+               </div>
+            </div>
+            <br>
+         </div>
+
+         <div class="tab-content">
+            <div id="endereco" class="tab-pane fade in active show">
+               <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                     <thead>
+                        <tr>
+                        
+                           <th>
+                              CodigoBairro
+                          
+                           </th>
+                           <th>
+                              Rua
+                            
+                           </th>
+                           <th>
+                              Numero
+                            
+                           </th>
+                           <th>
+                              Complemento
+                            
+                           </th>
+                           <th>
+                              Cep
+                            
+                           </th>
+                      
+
+                           <th>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr
+                           *ngFor="let endereco of enderecos ">
+                           <td>{{endereco.codigoBairro }}</td>
+                           <td>{{endereco.nomeRua}}</td>
+                           <td>{{endereco.numero}}</td>
+                           <td>{{endereco.complemento}}</td>
+                           <td>{{endereco.cep}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+
+                  <hr>
+
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+
+      <pre>{{pessoaForm.value | json}}</pre>
+
+   </div>

@@ -1,12 +1,15 @@
-export class Usuario {
+import { Endereco } from "../enderecos/endereco.model";
+
+export class Pessoa {
     constructor(
-        public CODIGO?: number,
-        public COD_PERFIL_USUARIO?: number,
-        public PERFIL_USUARIO?: string,
-        public NOME?: string,
-        public EMAIL?: string,
-        public SENHA?: string,
-        public token?: string
+        public codigoPessoa?: number,
+        public nome?: string,
+        public sobrenome?: string,
+        public idade?: string,
+        public login?: string,
+        public senha?: string,
+        public status?: string,
+        public enderecos?: Endereco
       
     ){}
 } 

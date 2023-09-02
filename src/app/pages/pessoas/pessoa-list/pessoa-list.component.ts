@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { Usuario } from '../pessoa.model';
+import { PessoaService } from 'src/app/core/services/pessoa.service';
+import { Pessoa } from '../pessoa.model';
 import {ConfirmationService} from 'primeng/api';
 
 @Component({
@@ -25,11 +25,11 @@ export class PessoaListComponent implements OnInit {
         this.reverse = !this.reverse;
     }
 
-  usuarios: Usuario[] = [];
+  pessoas: Pessoa[] = [];
   
 
   constructor(
-    private usuarioService: UsuarioService, 
+    private pessoaService: PessoaService, 
     private confirmationService: ConfirmationService
     ) { }
 
@@ -56,23 +56,20 @@ export class PessoaListComponent implements OnInit {
     };
    
 
-    this.usuarioService.getAll().subscribe(
-     usuarios =>  this.usuarios = usuarios,
+    this.pessoaService.getAll().subscribe(
+     pessoas =>  this.pessoas = pessoas,
       error => alert ("Erro ao carregar a lista"),
     )
   }
-  deleteUsuario(usuario){
-
+  deletePessoa(pessoa){
       this.position = "right";
-
-
       this.confirmationService.confirm({
         message: 'Deseja realmente excluir este item?',
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
         accept: () => {
-          this.usuarioService.delete(usuario.CODIGO).subscribe(
-            () => this.usuarios = this.usuarios.filter(element =>  element != usuario),
+          this.pessoaService.delete(pessoa.codigoPessoa).subscribe(
+            () => this.pessoas = this.pessoas.filter(element =>  element != pessoa),
             () => alert ("Erro ao tentar excluir!")
     
           )

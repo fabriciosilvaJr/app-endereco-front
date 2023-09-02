@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../core/services/auth.service';
-import { Usuario } from '../pages/pessoas/pessoa.model';
+import { Pessoa } from '../pages/pessoas/pessoa.model';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
    
@@ -19,11 +19,11 @@ export class AuthInterceptor implements HttpInterceptor{
 
    
     intercept(req: HttpRequest<any>, next: HttpHandler){
-      const usuario: any = {
+      const pessoa: any = {
         NOME: localStorage.getItem('nome'),
         CODIGO: localStorage.getItem('id'),
       }
-        console.log(usuario);
+        console.log(pessoa);
         if(localStorage.getItem('token')){
             const authReq = req.clone({
                  setHeaders:{
@@ -35,10 +35,10 @@ export class AuthInterceptor implements HttpInterceptor{
                     console.log(error);
                     if (error instanceof HttpErrorResponse){
                         if(error.status === 401){
-                            this.authservice.logout(usuario).subscribe(
-                                (usuario) =>{
-                                  //console.log(usuario),
-                                  this.actionsForSucess(usuario)
+                            this.authservice.logout(pessoa).subscribe(
+                                (pessoa) =>{
+                                  //console.log(pessoa),
+                                  this.actionsForSucess(pessoa)
                                 },
                                 (error) =>{
                                   console.log(error);
@@ -59,7 +59,7 @@ export class AuthInterceptor implements HttpInterceptor{
         return next.handle(req);
     }
 
-    private actionsForSucess(usuario: Usuario){
+    private actionsForSucess(pessoa: Pessoa){
    
   
         this.router.navigateByUrl('/login');
