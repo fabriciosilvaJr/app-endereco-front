@@ -9,10 +9,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MunicipioFilterPipe } from './municipio-filter.pipe';
 
 
 @NgModule({
-  declarations: [MunicipioListComponent, MunicipioFormComponent],
+  declarations: [MunicipioListComponent, MunicipioFormComponent, MunicipioFilterPipe],
   imports: [
     CommonModule,
     MunicipiosRoutingModule,

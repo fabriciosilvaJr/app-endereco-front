@@ -9,10 +9,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { BairroFilterPipe } from './bairro-filter.pipe';
 
 
 @NgModule({
-  declarations: [BairroListComponent, BairroFormComponent],
+  declarations: [BairroListComponent, BairroFormComponent, BairroFilterPipe],
   imports: [
     CommonModule,
     BairrosRoutingModule,

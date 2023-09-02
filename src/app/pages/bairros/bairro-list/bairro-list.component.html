@@ -52,7 +52,7 @@
             </thead>
             <tbody>
                 <tr
-                    *ngFor="let bairro of bairros |  orderBy: key : reverse  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: bairros.length };">
+                    *ngFor="let bairro of bairros |  orderBy: key : reverse | bairroFilter:searchTerm  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: bairros.length };">
                     <td>{{bairro.codigoBairro }}</td>
                     <td>{{bairro.codigoMunicipio}}</td>
                     <td>{{bairro.nome }}</td>

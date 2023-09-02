@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <tr
-                    *ngFor="let municipio of municipios |  orderBy: key : reverse  | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: municipios.length };">
+                    *ngFor="let municipio of municipios |  orderBy: key : reverse | municipioFilter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: paginaAtual, totalItems: municipios.length };">
                     <td>{{municipio.codigoMunicipio }}</td>
                     <td>{{municipio.codigoUF}}</td>
                     <td>{{municipio.nome }}</td>
