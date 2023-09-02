@@ -14,9 +14,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  
-  GUID = window.localStorage.getItem('guid');
-  ID = window.localStorage.getItem('id');
+    ID = window.localStorage.getItem('id');
 
   private api: string = (environment.api + "pessoa" ) 
  
@@ -121,8 +119,6 @@ reset(pessoa: Pessoa){
    localStorage.removeItem('token');
    localStorage.removeItem('nome');
    localStorage.removeItem('id');
-   localStorage.removeItem('role');
-   localStorage.removeItem('guid');
    this.subjLoggedIn$.next(false);
    this.subjPessoa$.next(null);
 

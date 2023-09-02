@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
 
     this.submittingForm = false;
 
-    if(error.status === 401)
+    if(error.status === 404)
        toastr.error("Usuário ou senha invalida");
       else if(error.status === 404){
           this.confirmationService.confirm({
